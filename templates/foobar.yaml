@@ -1,1 +1,2 @@
----
+zabbix_export:
+  version: '7.0'
