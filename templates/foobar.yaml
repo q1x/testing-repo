@@ -1,7 +1,7 @@
 zabbix_export:
   version: '7.0'
   template_groups:
-  - name: Templates/Applications
+  - name: Templates
   templates:
   - template: Foobar
     name: Foobar
@@ -11,4 +11,4 @@ zabbix_export:
       name: Foobar INC
       version: 7.0-0
     groups:
-    - name: Templates/Applications
+    - name: Templates
