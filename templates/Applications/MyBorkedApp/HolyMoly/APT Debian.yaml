@@ -1,8 +1,8 @@
 zabbix_export:
   version: '7.0'
   template_groups:
-  - uuid: 7df96b18c230490a9a0a9e2307226338
-    name: Templates
+  - uuid: 8ae41e34499645dba137d974c2940cf4
+    name: Templates/Applications/MyBorkedApp/HolyMoly
   templates:
   - uuid: 0715a50dc2df485e8df7e969a315e493
     template: APT Debian
@@ -18,4 +18,4 @@ zabbix_export:
 
       mer
     groups:
-    - name: Templates
+    - name: Templates/Applications/MyBorkedApp/HolyMoly
