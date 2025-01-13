@@ -562,3 +562,88 @@ zabbix_export:
         newvalue: 'False'
       - value: '1'
         newvalue: 'True'
+  triggers:
+  - uuid: 94976a14a3df47a280f18947de19a396
+    expression: last(/Cellular Interfaces by SNMP/cell.int[status])=1 and last(/Cellular
+      Interfaces by SNMP/cell.is.backup)=1 and last(/Cellular Interfaces by SNMP/cell.is.used)=1
+    name: 'Cellular: Backup interface is active'
+    priority: WARNING
+    description: |
+      The cellular interface in this device is active. if $M_CELL_IS_BACKUP is set to 1, this probably means the primary connection is down and the location is using the backup cellular connection.
+
+      If the cellular interface is the primary interface, set $M_CELL_IS_BACKUP to 0 to disable this alert.
+  - uuid: 69b7f6531f02489f9f81449541c6d445
+    expression: length(last(/Cellular Interfaces by SNMP/cell.sim[iccid]))<{$I_CELL_ICCID_LEN}
+      and last(/Cellular Interfaces by SNMP/cell.is.used)=1
+    name: 'Cellular: SIM card not found'
+    priority: WARNING
+    description: |
+      The SIM card in the cellular modem cannot be read. 
+
+      If the modem in this device is not in use, set $M_CELL_IS_USED to 0 to ignore this error.
+  - uuid: 5a70c54b8bd549a09bc99c6c22479327
+    expression: last(/Cellular Interfaces by SNMP/cell.sim[status])<>2 and last(/Cellular
+      Interfaces by SNMP/cell.is.used)=1
+    name: 'Cellular: SIM card status: {ITEM.VALUE1}'
+    priority: WARNING
+    description: |
+      The SIM card in the cellular modem is in an error state.
+
+      If the modem in this device is not in use, set $M_CELL_IS_USED to 0 to ignore these errors.
+    dependencies:
+    - name: 'Cellular: SIM card not found'
+      expression: length(last(/Cellular Interfaces by SNMP/cell.sim[iccid]))<{$I_CELL_ICCID_LEN}
+        and last(/Cellular Interfaces by SNMP/cell.is.used)=1
+  graphs:
+  - uuid: 655865a708ad44f9b046091c3268087b
+    name: 'Cellular: Bandwidth Usage'
+    show_triggers: NO
+    ymin_type_1: FIXED
+    graph_items:
+    - drawtype: GRADIENT_LINE
+      color: 00C800
+      calc_fnc: MAX
+      item:
+        host: Cellular Interfaces by SNMP
+        key: cell.int.usage[down]
+    - sortorder: '1'
+      drawtype: BOLD_LINE
+      color: 0000BB
+      calc_fnc: MAX
+      item:
+        host: Cellular Interfaces by SNMP
+        key: cell.int.usage[up]
+  - uuid: 4eac5590f87a4a54a7a15b31a730bd21
+    name: 'Cellular: Signal Reception'
+    show_triggers: NO
+    graph_items:
+    - drawtype: GRADIENT_LINE
+      color: '888800'
+      calc_fnc: MIN
+      item:
+        host: Cellular Interfaces by SNMP
+        key: cell.rssi[cur]
+    - sortorder: '1'
+      drawtype: BOLD_LINE
+      color: 0000AA
+      calc_fnc: MIN
+      item:
+        host: Cellular Interfaces by SNMP
+        key: cell.rssi[avg]
+    - sortorder: '2'
+      drawtype: DASHED_LINE
+      color: EE0000
+      calc_fnc: MIN
+      item:
+        host: Cellular Interfaces by SNMP
+        key: CellRssiThresh
+  - uuid: bca0fcd27ae24e0da90bc60977ea1867
+    name: 'Cellular: Status'
+    show_triggers: NO
+    graph_items:
+    - drawtype: FILLED_REGION
+      color: 00CCCC
+      calc_fnc: MAX
+      item:
+        host: Cellular Interfaces by SNMP
+        key: cell.int[status]

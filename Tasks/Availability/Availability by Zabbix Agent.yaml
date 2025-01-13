@@ -93,3 +93,17 @@ zabbix_export:
       mappings:
       - value: '1'
         newvalue: Up
+  graphs:
+  - uuid: 2ae7eba718524ab8b017b63d3cb7ea0e
+    name: 'Zabbix: Passive check status'
+    yaxismax: '2'
+    show_triggers: NO
+    ymin_type_1: FIXED
+    ymax_type_1: FIXED
+    graph_items:
+    - drawtype: GRADIENT_LINE
+      color: CC0000
+      calc_fnc: ALL
+      item:
+        host: Availability by Zabbix Agent
+        key: zabbix[host,agent,available]

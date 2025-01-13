@@ -111,3 +111,58 @@ zabbix_export:
       value: '20'
     - macro: '{$T_GENERAL_UPTIME_THRESH}'
       value: '600'
+  triggers:
+  - uuid: b1a17a3a0d39412db8dc9394b86ad852
+    expression: nodata(/Cisco System by SNMP/CpuUsage5,43200s)=1 and nodata(/Cisco
+      System by SNMP/MemFree,43200s)=1
+    name: Not receiving monitoring data coming from {HOST.NAME}
+    priority: INFO
+    description: This trigger will go off when we are not receiving any snmp data
+      from this device in the last 12 hr
+  graphs:
+  - uuid: 10765b12672f4b34b264f2670e27adf3
+    name: 'CPU: Usage (%)'
+    ymin_type_1: FIXED
+    ymax_type_1: FIXED
+    graph_items:
+    - drawtype: GRADIENT_LINE
+      color: 3333FF
+      calc_fnc: MAX
+      item:
+        host: Cisco System by SNMP
+        key: CpuUsage5
+  - uuid: 569bb1d8b49a47d289b7e7381e5808c2
+    name: 'Memory: Usage (%)'
+    show_triggers: NO
+    ymin_type_1: FIXED
+    ymax_type_1: FIXED
+    graph_items:
+    - drawtype: GRADIENT_LINE
+      color: 3333FF
+      calc_fnc: MIN
+      item:
+        host: Cisco System by SNMP
+        key: MemPercFree
+    - sortorder: '1'
+      drawtype: BOLD_LINE
+      color: EE0000
+      calc_fnc: MIN
+      item:
+        host: Cisco System by SNMP
+        key: MemFreeThresh
+  - uuid: 0ae30173ed554ad0b904614c93ddc69f
+    name: 'Memory: Usage (bytes)'
+    show_triggers: NO
+    type: STACKED
+    graph_items:
+    - color: FF3333
+      yaxisside: RIGHT
+      item:
+        host: Cisco System by SNMP
+        key: MemUsed
+    - sortorder: '1'
+      color: 33FF33
+      yaxisside: RIGHT
+      item:
+        host: Cisco System by SNMP
+        key: MemFree

@@ -85,3 +85,13 @@ zabbix_export:
         newvalue: 'False'
       - value: '1'
         newvalue: 'True'
+  triggers:
+  - uuid: c021dd2dda9d4b4aa2827823c14221af
+    expression: last(/Dialer Interfaces by SNMP/dialer.int[status])<>1 and last(/Dialer
+      Interfaces by SNMP/dialer.int[status])<>5 and last(/Dialer Interfaces by SNMP/dialer.is.used)=1
+    name: 'Dialer: Interface is down'
+    priority: WARNING
+    description: |
+      The Dialer interface of the device is down.
+
+      If the interface in this device is not in use, set $M_DIALER_IS_USED to 0 to ignore these errors.

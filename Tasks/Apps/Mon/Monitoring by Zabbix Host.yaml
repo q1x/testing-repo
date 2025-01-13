@@ -81,3 +81,32 @@ zabbix_export:
         newvalue: in maintenance
       - value: '2'
         newvalue: no data collection
+  triggers:
+  - uuid: 7daf6784deed4b64b34964c2bddd159d
+    expression: (last(/Monitoring by Zabbix Host/zabbix[host,,items_unsupported])
+      / last(/Monitoring by Zabbix Host/zabbix[host,,items])) * 100 >= {$T_ZBX_UNSUPP_THRESH_PERC}
+    name: 'Zabbix: {HOST.NAME} monitoring is unsupported'
+    priority: HIGH
+    description: |
+      {$T_ZBX_UNSUPP_THRESH_PERC}% of this hosts items are unsupported, the host status can not reliably be determined. 
+      This is probably due to a configuration error on the device, check (SNMP) configuration parameters.
+
+      Number of unsupported items: {ITEM.VALUE1} of {ITEM.VALUE2}
+  graphs:
+  - uuid: f57c1211752b404893cc0c63de2756a0
+    name: 'Zabbix: Host item stats'
+    ymin_type_1: FIXED
+    graph_items:
+    - drawtype: FILLED_REGION
+      color: 6666FF
+      calc_fnc: MAX
+      item:
+        host: Monitoring by Zabbix Host
+        key: zabbix[host,,items]
+    - sortorder: '1'
+      drawtype: FILLED_REGION
+      color: FF6666
+      calc_fnc: MAX
+      item:
+        host: Monitoring by Zabbix Host
+        key: zabbix[host,,items_unsupported]

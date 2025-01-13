@@ -159,3 +159,53 @@ zabbix_export:
         newvalue: Down
       - value: '1'
         newvalue: Up
+  graphs:
+  - uuid: 8c78f791d3194d738311816588e78bd9
+    name: 'Ping: Performance'
+    show_triggers: NO
+    ymin_type_1: FIXED
+    graph_items:
+    - drawtype: DASHED_LINE
+      color: BB0000
+      calc_fnc: MIN
+      item:
+        host: Availability by ICMP
+        key: IcmpPingResponseThresh[{$T_PING_SEC_THRESH}]
+    - sortorder: '1'
+      drawtype: BOLD_LINE
+      color: 00DDDD
+      item:
+        host: Availability by ICMP
+        key: 
+          icmppingsec[,"{$I_PING_PACKETS:SEC}","{$I_PING_INTERVAL:SEC}","{$I_PING_SIZE:SEC}","{$I_PING_TIMEOUT:SEC}"]
+    - sortorder: '2'
+      drawtype: DASHED_LINE
+      color: FFA500
+      yaxisside: RIGHT
+      calc_fnc: MIN
+      item:
+        host: Availability by ICMP
+        key: IcmpPingLossThresh[{$T_PING_LOSS_THRESH}]
+    - sortorder: '3'
+      drawtype: BOLD_LINE
+      color: BB00BB
+      yaxisside: RIGHT
+      item:
+        host: Availability by ICMP
+        key: 
+          icmppingloss[,"{$I_PING_PACKETS:LOSS}","{$I_PING_INTERVAL:LOSS}","{$I_PING_SIZE:LOSS}","{$I_PING_TIMEOUT:LOSS}"]
+  - uuid: f9a66a9f84af44eaa23737cea823c524
+    name: 'Ping: Reachability (1=Up, 0=Down)'
+    yaxismax: '1'
+    show_triggers: NO
+    percent_left: '95'
+    ymin_type_1: FIXED
+    ymax_type_1: FIXED
+    graph_items:
+    - drawtype: FILLED_REGION
+      color: 1A7C11
+      calc_fnc: MIN
+      item:
+        host: Availability by ICMP
+        key: 
+          icmpping[,"{$I_PING_PACKETS:PING}","{$I_PING_INTERVAL:PING}","{$I_PING_SIZE:PING}","{$I_PING_TIMEOUT:PING}"]

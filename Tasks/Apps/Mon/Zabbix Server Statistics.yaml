@@ -83,3 +83,22 @@ zabbix_export:
     - macro: '{$T_SERVER_RESTART_SUPPRESSION}'
       value: '1800'
     - macro: '{$T_ZABBIX_UPTIMETHRESH}'
+  graphs:
+  - uuid: c79d64863614420f88da8c32a9ccfff1
+    name: 'Zabbix: Items'
+    show_triggers: NO
+    ymin_type_1: FIXED
+    graph_items:
+    - drawtype: FILLED_REGION
+      color: 00AA00
+      calc_fnc: MAX
+      item:
+        host: t_task_app_mon_zabbix_server_statistics
+        key: zabbix[items]
+    - sortorder: '1'
+      drawtype: DASHED_LINE
+      color: CC0000
+      calc_fnc: MAX
+      item:
+        host: t_task_app_mon_zabbix_server_statistics
+        key: zabbix[items_unsupported]

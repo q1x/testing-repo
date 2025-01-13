@@ -158,3 +158,64 @@ zabbix_export:
       tags:
       - tag: Application
         value: Zabbix::Metrics
+  graphs:
+  - uuid: 7367d6102bcb4ad6a2cf64758daf06b6
+    name: 'Zabbix: Cache sizes (B)'
+    show_triggers: NO
+    type: STACKED
+    ymin_type_1: FIXED
+    graph_items:
+    - color: FF33FF
+      item:
+        host: t_task_app_mon_zabbix_server_caches
+        key: zabbix[wcache,history,total]
+    - sortorder: '1'
+      color: 99FF99
+      item:
+        host: t_task_app_mon_zabbix_server_caches
+        key: zabbix[wcache,index,total]
+    - sortorder: '2'
+      color: 00BBBB
+      item:
+        host: t_task_app_mon_zabbix_server_caches
+        key: zabbix[wcache,trend,total]
+    - sortorder: '3'
+      color: FFA500
+      item:
+        host: t_task_app_mon_zabbix_server_caches
+        key: zabbix[vcache,buffer,total]
+    - sortorder: '4'
+      color: FC6EA3
+      item:
+        host: t_task_app_mon_zabbix_server_caches
+        key: zabbix[rcache,buffer,total]
+  - uuid: 128629ccffd94c2f8715d62db14f4ee1
+    name: 'Zabbix: Cache usage (%)'
+    show_triggers: NO
+    ymin_type_1: FIXED
+    ymax_type_1: FIXED
+    graph_items:
+    - color: FF33FF
+      item:
+        host: t_task_app_mon_zabbix_server_caches
+        key: zabbix[wcache,history,pfree]
+    - sortorder: '1'
+      color: 99FF99
+      item:
+        host: t_task_app_mon_zabbix_server_caches
+        key: zabbix[wcache,index,pfree]
+    - sortorder: '2'
+      color: 00BBBB
+      item:
+        host: t_task_app_mon_zabbix_server_caches
+        key: zabbix[wcache,trend,pfree]
+    - sortorder: '3'
+      color: FFA500
+      item:
+        host: t_task_app_mon_zabbix_server_caches
+        key: zabbix[vcache,buffer,pfree]
+    - sortorder: '4'
+      color: FC6EA3
+      item:
+        host: t_task_app_mon_zabbix_server_caches
+        key: zabbix[rcache,buffer,pfree]

@@ -624,3 +624,233 @@ zabbix_export:
         newvalue: N/A
       - value: '21474836.46'
         newvalue: N/A
+  triggers:
+  - uuid: e0f32214b8104a84a6c5314d51e36cc7
+    expression: (last(/VDSL Interface by SNMP/vdsl.atn.ds[atm])>{$T_VDSL_ATTN_THRESH_DS}
+      and last(/VDSL Interface by SNMP/vdsl.atn.ds[atm])<21474836.46) or (last(/VDSL
+      Interface by SNMP/vdsl.atn.ds[1])>{$T_VDSL_ATTN_THRESH_DS} and last(/VDSL Interface
+      by SNMP/vdsl.atn.ds[1])<21474836.46)
+    name: 'VDSL: Downstream attenuation is over {$T_VDSL_ATTN_THRESH_DS} db'
+    priority: WARNING
+    description: |
+      Attenuation on the primary upstream VDSL/ADSL channel is higher than {$T_VDSL_ATTN_THRESH_DS} db.
+
+      Current channel attenuation (a value of 0 indicates that the channel is not used):
+
+      ATM: {ITEM.VALUE1}
+      DS1: {ITEM.VALUE3}
+  - uuid: 9f42db8b916b4520b4b9f0e9c04f1a42
+    expression: (last(/VDSL Interface by SNMP/vdsl.atn.us[atm])>{$T_VDSL_ATTN_THRESH_US}
+      and last(/VDSL Interface by SNMP/vdsl.atn.us[atm])<21474836.46) or (last(/VDSL
+      Interface by SNMP/vdsl.atn.us[0])>{$T_VDSL_ATTN_THRESH_US} and last(/VDSL Interface
+      by SNMP/vdsl.atn.us[0])<21474836.46)
+    name: 'VDSL: Upstream attenuation is over {$T_VDSL_ATTN_THRESH_US} db'
+    priority: WARNING
+    description: |
+      Attenuation on the primary upstream VDSL/ADSL channel is higher than {$T_VDSL_ATTN_THRESH_US} db.
+
+      Current channel attenuations (a value of 0 indicates that the channel is not used):
+
+      ATM: {ITEM.VALUE1}
+      US0: {ITEM.VALUE3}
+  graphs:
+  - uuid: 4ff4ec8d8625467c81ca55dd86c391c7
+    name: 'VDSL: Attainable rates'
+    ymin_type_1: FIXED
+    graph_items:
+    - drawtype: GRADIENT_LINE
+      color: 0000AA
+      calc_fnc: MAX
+      item:
+        host: VDSL Interface by SNMP
+        key: vdsl.attnrate[DS]
+    - sortorder: '1'
+      drawtype: BOLD_LINE
+      color: '009900'
+      calc_fnc: MAX
+      item:
+        host: VDSL Interface by SNMP
+        key: vdsl.attnrate[US]
+    - sortorder: '2'
+      drawtype: DASHED_LINE
+      color: DDDD00
+      calc_fnc: MIN
+      item:
+        host: VDSL Interface by SNMP
+        key: VdslAttnRateThresh[DS]
+    - sortorder: '3'
+      drawtype: DASHED_LINE
+      color: C80000
+      calc_fnc: MIN
+      item:
+        host: VDSL Interface by SNMP
+        key: VdslAttnRateThresh[US]
+  - uuid: 4ef9d3d859dd4cb4beae3b6c4331607b
+    name: 'VDSL: Attenuation'
+    yaxismax: '120'
+    show_triggers: NO
+    ymin_type_1: FIXED
+    ymax_type_1: FIXED
+    graph_items:
+    - color: EE00EE
+      calc_fnc: MIN
+      item:
+        host: VDSL Interface by SNMP
+        key: vdsl.atn.ds[atm]
+    - sortorder: '1'
+      color: 33FFFF
+      calc_fnc: MIN
+      item:
+        host: VDSL Interface by SNMP
+        key: vdsl.atn.ds[1]
+    - sortorder: '2'
+      color: 00EE00
+      calc_fnc: MIN
+      item:
+        host: VDSL Interface by SNMP
+        key: vdsl.atn.ds[2]
+    - sortorder: '3'
+      color: FF8040
+      calc_fnc: MIN
+      item:
+        host: VDSL Interface by SNMP
+        key: vdsl.atn.ds[3]
+    - sortorder: '4'
+      color: '660066'
+      calc_fnc: MIN
+      item:
+        host: VDSL Interface by SNMP
+        key: vdsl.atn.us[atm]
+    - sortorder: '5'
+      color: '000000'
+      calc_fnc: MIN
+      item:
+        host: VDSL Interface by SNMP
+        key: vdsl.atn.us[0]
+    - sortorder: '6'
+      color: '005555'
+      calc_fnc: MIN
+      item:
+        host: VDSL Interface by SNMP
+        key: vdsl.atn.us[1]
+    - sortorder: '7'
+      color: '005500'
+      calc_fnc: MIN
+      item:
+        host: VDSL Interface by SNMP
+        key: vdsl.atn.us[2]
+    - sortorder: '8'
+      color: '005500'
+      calc_fnc: MIN
+      item:
+        host: VDSL Interface by SNMP
+        key: vdsl.atn.us[3]
+    - sortorder: '9'
+      drawtype: DASHED_LINE
+      color: BB0000
+      calc_fnc: MAX
+      item:
+        host: VDSL Interface by SNMP
+        key: VdslAttnThresh[DS]
+    - sortorder: '10'
+      drawtype: DASHED_LINE
+      color: EEEE00
+      calc_fnc: MAX
+      item:
+        host: VDSL Interface by SNMP
+        key: VdslAttnThresh[US]
+  - uuid: 0bba51aeec4e4fdaaf6aa0e4034e7488
+    name: 'VDSL: Bandwidth Usage'
+    show_triggers: NO
+    ymin_type_1: FIXED
+    graph_items:
+    - drawtype: GRADIENT_LINE
+      color: 00C800
+      calc_fnc: MAX
+      item:
+        host: VDSL Interface by SNMP
+        key: vdsl.usage[ADSL,down]
+    - sortorder: '1'
+      drawtype: GRADIENT_LINE
+      color: 00C800
+      calc_fnc: MAX
+      item:
+        host: VDSL Interface by SNMP
+        key: vdsl.usage[VDSL,down]
+    - sortorder: '2'
+      drawtype: BOLD_LINE
+      color: 0000BB
+      calc_fnc: MAX
+      item:
+        host: VDSL Interface by SNMP
+        key: vdsl.usage[ADSL,up]
+    - sortorder: '3'
+      drawtype: BOLD_LINE
+      color: 0000BB
+      calc_fnc: MAX
+      item:
+        host: VDSL Interface by SNMP
+        key: vdsl.usage[VDSL,up]
+    - sortorder: '4'
+      drawtype: DASHED_LINE
+      color: FFA500
+      calc_fnc: MIN
+      item:
+        host: VDSL Interface by SNMP
+        key: vdsl.attnrate[DS]
+    - sortorder: '5'
+      drawtype: DASHED_LINE
+      color: C80000
+      calc_fnc: MIN
+      item:
+        host: VDSL Interface by SNMP
+        key: vdsl.attnrate[US]
+  - uuid: a8ecf71a7534452ebd85784854381880
+    name: 'VDSL: Daily inits'
+    show_triggers: NO
+    graph_items:
+    - drawtype: DASHED_LINE
+      color: BB0000
+      calc_fnc: MIN
+      item:
+        host: VDSL Interface by SNMP
+        key: VdslInitThresh
+    - sortorder: '1'
+      drawtype: GRADIENT_LINE
+      color: DDDD00
+      calc_fnc: MAX
+      item:
+        host: VDSL Interface by SNMP
+        key: vdsl.inits[24hr]
+  - uuid: 444b800b767544fd9acdeee01bd1a5d7
+    name: 'VDSL: Signal to Noise Ratio margins'
+    show_triggers: NO
+    ymin_type_1: FIXED
+    graph_items:
+    - drawtype: BOLD_LINE
+      color: 00C800
+      calc_fnc: MIN
+      item:
+        host: VDSL Interface by SNMP
+        key: vdsl.snr[US]
+    - sortorder: '1'
+      drawtype: BOLD_LINE
+      color: 0000CC
+      calc_fnc: MIN
+      item:
+        host: VDSL Interface by SNMP
+        key: vdsl.snr[DS]
+    - sortorder: '2'
+      drawtype: DASHED_LINE
+      color: AA0000
+      calc_fnc: MAX
+      item:
+        host: VDSL Interface by SNMP
+        key: VdslSnrmgnThresh[US]
+    - sortorder: '3'
+      drawtype: DASHED_LINE
+      color: DDDD00
+      calc_fnc: MAX
+      item:
+        host: VDSL Interface by SNMP
+        key: VdslSnrmgnThresh[DS]

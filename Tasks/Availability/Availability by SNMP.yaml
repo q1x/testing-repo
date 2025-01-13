@@ -62,3 +62,17 @@ zabbix_export:
         newvalue: available
       - value: '2'
         newvalue: unknown
+  graphs:
+  - uuid: 331713f66d56477593b5b426a8124edc
+    name: 'Zabbix: Passive check status'
+    yaxismax: '2'
+    show_triggers: NO
+    ymin_type_1: FIXED
+    ymax_type_1: FIXED
+    graph_items:
+    - drawtype: GRADIENT_LINE
+      color: CC0000
+      calc_fnc: ALL
+      item:
+        host: Availability by SNMP
+        key: zabbix[host,snmp,available]

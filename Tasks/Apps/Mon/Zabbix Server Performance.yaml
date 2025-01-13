@@ -436,3 +436,130 @@ zabbix_export:
       value: '900'
     - macro: '{$T_ZABBIX_PERF_TIME:"housekeeper"}'
       value: '3600'
+  graphs:
+  - uuid: c2fa1073f9624f02a73e8581c7d83a19
+    name: 'Zabbix: Collector processes (time, %)'
+    show_triggers: NO
+    ymin_type_1: FIXED
+    ymax_type_1: FIXED
+    graph_items:
+    - color: 1A7C11
+      item:
+        host: Zabbix Server Performance
+        key: zabbix[process,http poller,avg,busy]
+    - sortorder: '1'
+      color: F63100
+      item:
+        host: Zabbix Server Performance
+        key: zabbix[process,icmp pinger,avg,busy]
+    - sortorder: '2'
+      color: 2774A4
+      item:
+        host: Zabbix Server Performance
+        key: zabbix[process,ipmi poller,avg,busy]
+    - sortorder: '3'
+      color: A54F10
+      item:
+        host: Zabbix Server Performance
+        key: zabbix[process,java poller,avg,busy]
+    - sortorder: '4'
+      color: FC6EA3
+      item:
+        host: Zabbix Server Performance
+        key: zabbix[process,proxy poller,avg,busy]
+    - sortorder: '5'
+      color: 6C59DC
+      item:
+        host: Zabbix Server Performance
+        key: zabbix[process,snmp trapper,avg,busy]
+    - sortorder: '6'
+      color: AC8C14
+      item:
+        host: Zabbix Server Performance
+        key: zabbix[process,timer,avg,busy]
+    - sortorder: '7'
+      color: 611F27
+      item:
+        host: Zabbix Server Performance
+        key: zabbix[process,trapper,avg,busy]
+    - sortorder: '8'
+      color: F230E0
+      item:
+        host: Zabbix Server Performance
+        key: zabbix[process,unreachable poller,avg,busy]
+    - sortorder: '9'
+      color: 5CCD18
+      item:
+        host: Zabbix Server Performance
+        key: zabbix[process,vmware collector,avg,busy]
+    - sortorder: '10'
+      color: BB2A02
+      item:
+        host: Zabbix Server Performance
+        key: zabbix[process,poller,avg,busy]
+    - sortorder: '11'
+      color: 5A2B57
+      item:
+        host: Zabbix Server Performance
+        key: zabbix[process,self-monitoring,avg,busy]
+  - uuid: 218f37ebd01742d59aa71f605c916a73
+    name: 'Zabbix: Internal processes (time, %)'
+    show_triggers: NO
+    ymin_type_1: FIXED
+    ymax_type_1: FIXED
+    graph_items:
+    - color: 1A7C11
+      item:
+        host: Zabbix Server Performance
+        key: zabbix[process,alerter,avg,busy]
+    - sortorder: '1'
+      color: F63100
+      item:
+        host: Zabbix Server Performance
+        key: zabbix[process,configuration syncer,avg,busy]
+    - sortorder: '2'
+      color: 2774A4
+      item:
+        host: Zabbix Server Performance
+        key: zabbix[process,db watchdog,avg,busy]
+    - sortorder: '3'
+      color: A54F10
+      item:
+        host: Zabbix Server Performance
+        key: zabbix[process,discoverer,avg,busy]
+    - sortorder: '4'
+      color: FC6EA3
+      item:
+        host: Zabbix Server Performance
+        key: zabbix[process,escalator,avg,busy]
+    - sortorder: '5'
+      color: 6C59DC
+      item:
+        host: Zabbix Server Performance
+        key: zabbix[process,history syncer,avg,busy]
+    - sortorder: '6'
+      color: AC8C14
+      item:
+        host: Zabbix Server Performance
+        key: zabbix[process,housekeeper,avg,busy]
+  - uuid: 243ff6cf27044e0da99ad7aa48fb68a8
+    name: 'Zabbix: Values per second'
+    ymin_type_1: FIXED
+    graph_items:
+    - drawtype: GRADIENT_LINE
+      color: 1A7C11
+      item:
+        host: Zabbix Server Performance
+        key: zabbix[wcache,values,all]
+    - sortorder: '1'
+      drawtype: BOLD_LINE
+      color: F63100
+      item:
+        host: Zabbix Server Performance
+        key: zabbix[wcache,values,not supported]
+    - sortorder: '2'
+      drawtype: DASHED_LINE
+      color: 2774A4
+      item:
+        host: Zabbix Server Performance
+        key: zabbix[requiredperformance]

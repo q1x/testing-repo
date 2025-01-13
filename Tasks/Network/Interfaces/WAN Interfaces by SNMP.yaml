@@ -168,3 +168,32 @@ zabbix_export:
         newvalue: 'False'
       - value: '1'
         newvalue: 'True'
+  graphs:
+  - uuid: 4d34471124b74c079728ae90a27828a9
+    name: 'WAN: Bandwidth Usage'
+    show_triggers: NO
+    ymin_type_1: FIXED
+    graph_items:
+    - drawtype: GRADIENT_LINE
+      color: 00C800
+      calc_fnc: MAX
+      item:
+        host: WAN Interfaces by SNMP
+        key: wan.int.usage[down]
+    - sortorder: '1'
+      drawtype: BOLD_LINE
+      color: 0000BB
+      calc_fnc: MAX
+      item:
+        host: WAN Interfaces by SNMP
+        key: wan.int.usage[up]
+  - uuid: d7e807836b3d43bf93cfdca879302c0e
+    name: 'WAN: Status'
+    show_triggers: NO
+    graph_items:
+    - drawtype: FILLED_REGION
+      color: 00CCCC
+      calc_fnc: MAX
+      item:
+        host: WAN Interfaces by SNMP
+        key: wan.int[status]
